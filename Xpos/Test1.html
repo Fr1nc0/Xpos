@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan 📷</title>
+<link rel="icon" type="image/x-icon" href="Xpos.ico">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:600&display=swap" rel="stylesheet">
+<style>
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+}
+
+.top-bar {
+    background-color: #fff;
+    color: #000;
+    padding: 20px;
+    font-size: 24px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: flex-start; /* Align items to the left */
+    align-items: center; /* Center vertically */
+}
+
+.top-bar a {
+    color: #000;
+    text-decoration: none;
+    margin-left: 20px; /* Add space between Xpos and left edge */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+#webcam-container {
+    border-radius: 20%;
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+#cartDisplay {
+    text-align: center;
+    font-size: 24px;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+.display {
+    text-align: center;
+    font-size: 24px;
+    color: #000;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    margin-top: 20px;
+}
+
+.menu-item {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.custom-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ADD8E6;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 18px;
+    line-height: 1.5;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.custom-btn:hover {
+    background-color: #87CEEB;
+    transform: translateY(-3px);
+}
+
+.btn-text {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.btn-icon {
+    width: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+    <a href="Index.html">Xpos</a> <!-- Moved "Xpos" to the left -->
+</div>
+<div class="container">
+    <div id="webcam-container"></div> <!-- Rounded webcam container -->
+    <div id="cartDisplay">Cart: </div> <!-- Cart display -->
+    <div id="item-info" class="display">Item Info Will Appear Here</div> <!-- Moved item info here -->
+    <div id="label-container"></div>
+    <div id="cartStatus"></div>
+</div>
+<div class="menu">
+  <div class="menu-item">
+    <button class="custom-btn" onclick="init()"><span class="btn-icon">📷</span><span class="btn-text">Scan</span></button>
+  </div>
+  <div class="menu-item">
+    <button class="custom-btn" id="add-to-cart-button" onclick="addToCart()"><span class="btn-icon">🛒</span><span class="btn-text">Add To Cart</span></button>
+  </div>
+  <div class="menu-item">
+    <button class="custom-btn" onclick="saveCart()"><span class="btn-icon">💾</span><span class="btn-text">Save Cart</span></button>
+  </div>
+</div>
+
+<!--Load libraries-->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<script>
+ // Your JavaScript code here
+// Load libraries
+const URL = "https://teachablemachine.withgoogle.com/models/LjB_xERz5/";
+let model, webcam, labelContainer, maxPredictions;
+let selectedItemIndex;
+let cart = []; // This is your new cart array
+
+async function init() {
+    const modelURL = URL + "model.json";
+    const metadataURL = URL + "metadata.json";
+    model = await tmImage.load(modelURL, metadataURL);
+    maxPredictions = model.getTotalClasses();
+
+    const flip = true;
+    webcam = new tmImage.Webcam(200, 200, flip);
+
+    // Check if the webcam-container element exists
+    const webcamContainer = document.getElementById("webcam-container");
+    if (webcamContainer) {
+        await webcam.setup();
+        await webcam.play();
+        window.requestAnimationFrame(loop);
+
+        webcamContainer.appendChild(webcam.canvas);
+    } else {
+        console.error("Element with ID 'webcam-container' not found.");
+    }
+
+    labelContainer = document.getElementById("label-container");
+    for (let i = 0; i < maxPredictions; i++) {
+        labelContainer.appendChild(document.createElement("div"));
+    }
+}
+
+async function loop() {
+    webcam.update();
+    await predict();
+    window.requestAnimationFrame(loop);
+}
+
+async function predict() {
+    const prediction = await model.predict(webcam.canvas);
+
+    let highestProbability = 0;
+    for (let i = 0; i < maxPredictions; i++) {
+        if (prediction[i].probability > highestProbability) {
+            highestProbability = prediction[i].probability;
+            selectedItemIndex = i;
+        }
+    }
+
+    const itemName = prediction[selectedItemIndex].className;
+    const itemInfoElement = document.getElementById("item-info");
+    if (itemInfoElement) {
+        itemInfoElement.innerHTML = itemName;
+    } else {
+        console.error("Element with ID 'item-info' not found.");
+    }
+}
+
+function updateCartDisplay() {
+    var cartDisplayElement = document.getElementById('cartDisplay');
+    if (cartDisplayElement) {
+        cartDisplayElement.innerHTML = "Cart: " + cart.join(", ");
+    } else {
+        console.error("Element with ID 'cartDisplay' not found.");
+    }
+}
+
+async function addToCart() {
+    console.log("Add to cart clicked for item index: " + selectedItemIndex);
+    var cartStatusElement = document.getElementById('cartStatus');
+    const prediction = await model.predict(webcam.canvas);
+    const itemName = prediction[selectedItemIndex].className;
+    cart.push(itemName);
+    updateCartDisplay();
+    if (cartStatusElement) {
+        cartStatusElement.innerHTML = "Add to cart clicked for item: " + itemName;
+    } else {
+        console.error("Element with ID 'cartStatus' not found.");
+    }
+    await sendCartData(); // Call the function to send cart data to the server
+    window.location.href = 'Test1.2.html'; // Redirect the user to Test1.2.html
+}
+
+function saveCart() {
+    fetch('http://localhost:3000/cart-data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            cart: cart
+        })
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data);
+        window.location.href = 'Test1.2.html'; // Redirect the user to Test1.2.html
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+</script>
+</body>
+</html>

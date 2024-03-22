@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Title And Libraries-->
+    <title>Comprar 🛍️</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:600&display=swap" rel="stylesheet">
+    <!-- Css !-->
+    <style>
+        body, html {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        /* Styles for navbar and cart display */
+        .navbar {
+            background-color: #f8f8f8;
+            padding: 15px;
+            text-align: left;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: black;
+            font-size: 24px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #555;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 100px;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .container.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cart-item {
+            display: inline-block; /* Set display to inline-block */
+            align-items: center;
+            justify-content: center;
+            min-width: auto; /* Adjusted min-width */
+            height: 50px; /* Adjusted height */
+            margin: 10px auto;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            position: relative;
+        }
+
+        .cart-item.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .trashcan {
+            cursor: pointer;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 20px;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .trashcan:hover {
+            opacity: 1;
+        }
+
+        .empty-cart {
+            font-size: 18px;
+            color: #777;
+            margin-top: 20px;
+        }
+
+        .option-link {
+            color: black;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .option-link:hover {
+            color: #555;
+        }
+    </style>
+    <!-- JavaScript-->
+    <script>
+        <!-- Import Cart Data!-->
+        window.onload = function() {
+            fetch('http://localhost:3000/cart-data/')
+                .then(response => response.json())
+                .then(data => {
+                    const cartDisplay = document.getElementById('cartDisplay');
+                    const container = document.querySelector('.container');
+                    container.classList.add('show');
+                    if (data.cart.length === 0) {
+                        cartDisplay.innerHTML = "<p class='empty-cart'>El carrito está vacío.</p>";
+                    } else {
+                        data.cart.forEach(item => {
+                            const div = document.createElement('div');
+                            div.className = 'cart-item';
+                            const h2 = document.createElement('h2');
+                            h2.textContent = item;
+                            const trashcan = document.createElement('span');
+                            trashcan.className = 'trashcan';
+                            trashcan.textContent = '🗑️';
+                            trashcan.onclick = function(event) {
+                                // Stop the form submission
+                                event.preventDefault();
+
+                                // Send a DELETE request to the server with the item to delete
+                                fetch('http://localhost:3000/cart-data/' + encodeURIComponent(item), {
+                                    method: 'DELETE',
+                                })
+                                    .then(response => response.text())
+                                    .then(data => {
+                                        console.log(data);
+                                        // Remove the item element from the display
+                                        div.remove();
+                                        if (cartDisplay.children.length === 0) {
+                                            cartDisplay.innerHTML = "<p class='empty-cart'>El carrito está vacío.</p>";
+                                        }
+                                    })
+                                    .catch((error) => {
+                                        console.error('Error:', error);
+                                    });
+
+                                // Stop the event propagation
+                                event.stopPropagation();
+                                return false;
+                            };
+
+                            div.appendChild(trashcan);
+                            div.appendChild(h2);
+                            cartDisplay.appendChild(div);
+                            div.classList.add('show');
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+    <!-- Text And Buttons !-->
+</head>
+<body>
+<div class="navbar">
+    <a href="SpanishIndex.html" id="title">Xpos</a>
+</div>
+<div class="container">
+    <h1>Este es tu carrito</h1>
+    <div id="cartDisplay">
+        <!-- Cart items will be dynamically added here -->
+    </div>
+    <div>
+        <a href="SpanishPayMethod.html" class="option-link">Si</a>
+        <a href="SpanishTest1.2.html" class="option-link">No</a>
+    </div>
+</div>
+</body>
+</html>

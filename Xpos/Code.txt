@@ -1,0 +1,877 @@
+Index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Language Selection</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .selection-box {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        text-align: center;
+        animation: slideIn 0.5s ease forwards;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .language-btn {
+        display: inline-block;
+        padding: 15px 40px;
+        margin: 10px;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        font-size: 18px;
+        line-height: 1.5;
+        vertical-align: middle;
+    }
+
+    .language-btn:hover {
+        background-color: #2980b9;
+        transform: translateY(-3px);
+    }
+
+    .btn-icon {
+        width: 20px;
+        margin-right: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="selection-box">
+        <h1>Select a Language</h1>
+        <button class="language-btn" onclick="selectLanguage('spanish')"><img src="spanish.png" alt="Spanish" class="btn-icon">Español</button>
+        <button class="language-btn" onclick="selectLanguage('english')"><img src="english.png" alt="English" class="btn-icon">English</button>
+    </div>
+</div>
+
+<script>
+    function selectLanguage(language) {
+        localStorage.setItem('preferredLanguage', language);
+        // You can perform further actions here based on the selected language preference
+
+        // Navigate to the corresponding page based on the selected language
+        if (language === 'spanish') {
+            window.location.href = 'SpanishIndex.html';
+        } else if (language === 'english') {
+            window.location.href = 'Menu.html';
+        }
+    }
+</script>
+
+</body>
+</html>
+SpanishIndex.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .top-bar {
+            background-color: #fff;
+            color: #000;
+            padding: 20px;
+            text-align: left;
+            font-size: 24px;
+            width: 100%;
+        }
+        .menu {
+            display: flex;
+            justify-content: center;
+            padding: 50px 0;
+            width: 100%;
+            flex-grow: 1; /* Expand to fill remaining space */
+        }
+        .menu-item {
+            text-align: center;
+            margin: 0 20px; /* Add some margin between menu items */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .menu-item a {
+            text-decoration: none;
+            color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .menu-item a:hover {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+        .menu-icon {
+            font-size: 50px;
+            margin-bottom: 10px; /* Add some space between icon and text */
+        }
+        .menu-text {
+            font-size: 20px;
+        }
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar"><a href="SpanishIndex.html" style="color: #000; text-decoration: none;">Xpos</a></div>
+    <div class="menu">
+        <!-- Change 'buy.html' to the URL of your Buy page -->
+        <div class="menu-item">
+            <a href="spanishbuy.html">
+                <div class="menu-icon">🛍️</div>
+                <div class="menu-text">Comprar</div>
+            </a>
+        </div>
+        <!-- Change 'cart.html' to the URL of your Cart page -->
+        <div class="menu-item">
+            <a href="SpanishTest1.2.html">
+                <div class="menu-icon">🛒</div>
+                <div class="menu-text">Carrito</div>
+            </a>
+        </div>
+        <!-- Change 'scan.html' to the URL of your Scan page -->
+        <div class="menu-item">
+            <a href="SpanishTest1.html">
+                <div class="menu-icon">📷</div>
+                <div class="menu-text">Scanear</div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
+SpanishTest1.2.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Carrito 🛒</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .navbar {
+            background-color: #fff;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 600; /* SemiBold */
+            font-family: 'Montserrat', sans-serif;
+            transition: background-color 0.3s ease;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .cart {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .item {
+            position: relative;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .item:hover {
+            background-color: #f0f0f0;
+        }
+        .item h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .trashcan {
+            visibility: hidden;
+            position: absolute;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+        }
+        .item:hover .trashcan {
+            visibility: visible;
+        }
+        .trashcan:hover {
+            color: red;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            const cartDisplay = document.getElementById('cartDisplay');
+            fetch('http://localhost:3000/cart-data/')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.cart.length === 0) {
+                        cartDisplay.innerHTML = "<p>El carrito está vacío.</p>";
+                    } else {
+                        data.cart.forEach(item => {
+                            const div = document.createElement('div');
+                            div.className = 'item';
+                            const h2 = document.createElement('h2');
+                            h2.textContent = item;
+                            const trashcan = document.createElement('span');
+                            trashcan.className = 'trashcan';
+                            trashcan.textContent = '🗑️';
+                            trashcan.onclick = function(event) {
+                                // Stop the form submission
+                                event.preventDefault();
+
+                                // Send a DELETE request to the server with the item to delete
+                                fetch('http://localhost:3000/cart-data/' + encodeURIComponent(item), {
+                                    method: 'DELETE',
+                                })
+                                .then(response => response.text())
+                                .then(data => {
+                                    console.log(data);
+                                    // Remove the item element from the display
+                                    div.remove();
+                                    if (cartDisplay.children.length === 0) {
+                                        cartDisplay.innerHTML = "<p>El carrito está vacío.</p>";
+                                    }
+                                })
+                                .catch((error) => {
+                                    console.error('Error:', error);
+                                });
+
+                                // Stop the event propagation
+                                event.stopPropagation();
+                                return false;
+                            };
+
+                            div.appendChild(h2);
+                            div.appendChild(trashcan);
+                            cartDisplay.appendChild(div);
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function goToMainMenu() {
+            window.location.href = "SpanishIndex.html";
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar" onclick="goToMainMenu()" style="cursor: pointer;">
+        <span id="title" style="margin-left: 20px;">Xpos</span>
+    </div>
+    <div class="container">
+        <h1>Carrito 🛒</h1>
+        <div id="cartDisplay" class="cart"></div>
+    </div>
+</body>
+</html>
+
+SpanishTest1.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scanear 📷</title>
+<link rel="icon" type="image/x-icon" href="Xpos.ico">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:600&display=swap" rel="stylesheet">
+<style>
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+}
+
+.top-bar {
+    background-color: #fff;
+    color: #000;
+    padding: 20px;
+    text-align: left;
+    font-size: 24px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.top-bar a {
+    color: #000;
+    text-decoration: none;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+#webcam-container {
+    border-radius: 20px; /* Adjust the value to change the roundness */
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+
+#cartDisplay {
+    text-align: center;
+    font-size: 24px;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.display {
+    text-align: center;
+    font-size: 24px;
+    color: #000;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    margin-top: 20px;
+}
+
+.menu-item {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.custom-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ADD8E6;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 18px;
+    line-height: 1.5;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.custom-btn:hover {
+    background-color: #87CEEB;
+    transform: translateY(-3px);
+}
+
+.btn-text {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.btn-icon {
+    width: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+</style>
+</head>
+<body>
+<div class="top-bar"><a href="SpanishIndex.html">Xpos</a></div>
+<div class="container">
+    <div id="webcam-container"></div> <!-- Rounded webcam container -->
+    <div id="cartDisplay">Carrito: </div> <!-- Cart display -->
+    <div id="item-info" class="display">La informacion del scaneo sera mostrado aqui.</div> <!-- Moved item info here -->
+    <div id="label-container"></div>
+<div id="cartStatus"></div>
+</div>
+<div class="menu">
+  <div class="menu-item">
+    <button class="custom-btn" onclick="init()"><span class="btn-icon">📷</span><span class="btn-text">Scanear</span></button>
+  </div>
+  <div class="menu-item">
+    <button class="custom-btn" id="add-to-cart-button" onclick="addToCart()"><span class="btn-icon">🛒</span><span class="btn-text">Añadir Al Carrito</span></button>
+  </div>
+  <div class="menu-item">
+    <button class="custom-btn" onclick="saveCart()"><span class="btn-icon">💾</span><span class="btn-text">Guardar Carrito</span></button>
+  </div>
+</div>
+<!--Load libraries-->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<script>
+// Your JavaScript code here
+// Carga las bibliotecas
+const URL = "https://teachablemachine.withgoogle.com/models/LjB_xERz5/";
+let model, webcam, labelContainer, maxPredictions;
+let selectedItemIndex;
+let cart = []; // Este es tu nuevo array del carrito
+
+async function init() {
+    const modelURL = URL + "model.json";
+    const metadataURL = URL + "metadata.json";
+    model = await tmImage.load(modelURL, metadataURL);
+    maxPredictions = model.getTotalClasses();
+
+    const flip = true;
+    webcam = new tmImage.Webcam(200, 200, flip);
+
+    // Check if the webcam-container element exists
+    const webcamContainer = document.getElementById("webcam-container");
+    if (webcamContainer) {
+        await webcam.setup();
+        await webcam.play();
+        window.requestAnimationFrame(loop);
+
+        webcamContainer.appendChild(webcam.canvas);
+    } else {
+        console.error("Element with ID 'webcam-container' not found.");
+    }
+
+    labelContainer = document.getElementById("label-container");
+    for (let i = 0; i < maxPredictions; i++) {
+        labelContainer.appendChild(document.createElement("div"));
+    }
+}
+
+async function loop() {
+    webcam.update();
+    await predict();
+    window.requestAnimationFrame(loop);
+}
+
+async function predict() {
+    const prediction = await model.predict(webcam.canvas);
+
+    let highestProbability = 0;
+    for (let i = 0; i < maxPredictions; i++) {
+        if (prediction[i].probability > highestProbability) {
+            highestProbability = prediction[i].probability;
+            selectedItemIndex = i;
+        }
+    }
+
+    const itemName = prediction[selectedItemIndex].className;
+    const itemInfoElement = document.getElementById("item-info");
+    if (itemInfoElement) {
+        itemInfoElement.innerHTML = itemName;
+    } else {
+        console.error("Element with ID 'item-info' not found.");
+    }
+}
+
+function updateCartDisplay() {
+    var cartDisplayElement = document.getElementById('cartDisplay');
+    if (cartDisplayElement) {
+        cartDisplayElement.innerHTML = "Cart: " + cart.join(", ");
+    } else {
+        console.error("Element with ID 'cartDisplay' not found.");
+    }
+}
+
+async function addToCart() {
+    console.log("Add to cart clicked for item index: " + selectedItemIndex);
+    var cartStatusElement = document.getElementById('cartStatus');
+    const prediction = await model.predict(webcam.canvas);
+    const itemName = prediction[selectedItemIndex].className;
+    cart.push(itemName);
+    updateCartDisplay();
+    if (cartStatusElement) {
+        cartStatusElement.innerHTML = "Add to cart clicked for item: " + itemName;
+    } else {
+        console.error("Element with ID 'cartStatus' not found.");
+    }
+    await sendCartData(); // Llama a la función para enviar los datos del carrito al servidor
+    window.location.href = 'SpanishTest1.2.html'; // Redirige al usuario a Test1.2.html
+}
+
+function saveCart() {
+    fetch('http://localhost:3000/cart-data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            cart: cart
+        })
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data);
+        window.location.href = 'SpanishTest1.2.html'; // Redirige al usuario a Test1.2.html
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+</script>
+</body>
+</html>
+SpanishPaymethod.html
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- NavBar !-->
+    <title>Método De Pago 🛍️</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .top-bar {
+            color: #000;
+            padding: 20px;
+            text-align: left;
+            font-size: 24px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #f8f8f8;
+            z-index: 1000;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .menu {
+            display: flex;
+            justify-content: space-around;
+            padding: 50px;
+            margin-top: 80px; /* Adjusted margin top to account for fixed navbar */
+        }
+        .menu-item {
+            text-align: center;
+        }
+        .menu-icon {
+            font-size: 50px;
+        }
+        .menu-text {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 80px); /* Adjusted height to account for fixed navbar */
+            margin: 0;
+            transition: opacity 0.5s, transform 0.5s;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        form.loading {
+            opacity: 0.5;
+            transform: translateY(-50px);
+        }
+        select, input[type="submit"] {
+            margin: 5px;
+            padding: 15px;
+            font-size: 20px;
+            border: 4px solid black; /* Bordes añadidos */
+            border-radius: 8px; /* Esquinas redondeadas */
+            font-family: 'Montserrat', sans-serif; /* Fuente Montserrat */
+            transition: all 0.3s ease-in-out;
+        }
+        select:focus, input[type="submit"]:hover {
+            border-color: #87CEEB; /* Change border color on focus/hover */
+            transform: scale(1.05); /* Scale up on focus/hover */
+        }
+    </style>
+</head>
+<body>
+<div class="top-bar"><a href="SpanishIndex.html" style="color: #000; text-decoration: none;">Xpos</a></div>
+<form id="paymentForm" action="" method="GET">
+    <select id="payment" name="payment">
+        <option value="pagos-digitales">Pagos Digitales</option>
+        <option value="efectivo">Efectivo</option>
+    </select>
+    <input type="submit" value="Pagar">
+</form>
+<!-- Lock Scrolling! -->
+<script>
+    window.onscroll = function () { window.scrollTo(0, 0); };
+
+    // Simulate loading animation
+    document.getElementById('paymentForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        this.classList.add('loading');
+        setTimeout(() => {
+            let selectedOption = document.getElementById('payment').value;
+            let url = ""; // Set your desired URL here
+            if (selectedOption === "pagos-digitales") {
+                url = "https://example.com/pagos-digitales";
+            } else if (selectedOption === "libelula") {
+                url = "https://example.com/libelula";
+            } else if (selectedOption === "efectivo") {
+                url = "https://example.com/efectivo";
+            }
+            window.location.href = url;
+        }, 1000); // Redirect after 1 second (adjust as needed)
+    });
+</script>
+</body>
+</html>
+spanishbuy.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Title And Libraries-->
+    <title>Comprar 🛍️</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:600&display=swap" rel="stylesheet">
+    <!-- Css !-->
+    <style>
+        body, html {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        /* Styles for navbar and cart display */
+        .navbar {
+            background-color: #f8f8f8;
+            padding: 15px;
+            text-align: left;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: black;
+            font-size: 24px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #555;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 100px;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .container.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cart-item {
+            display: inline-block; /* Set display to inline-block */
+            align-items: center;
+            justify-content: center;
+            min-width: auto; /* Adjusted min-width */
+            height: 50px; /* Adjusted height */
+            margin: 10px auto;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            position: relative;
+        }
+
+        .cart-item.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .trashcan {
+            cursor: pointer;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 20px;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .trashcan:hover {
+            opacity: 1;
+        }
+
+        .empty-cart {
+            font-size: 18px;
+            color: #777;
+            margin-top: 20px;
+        }
+
+        .option-link {
+            color: black;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .option-link:hover {
+            color: #555;
+        }
+    </style>
+    <!-- JavaScript-->
+    <script>
+        <!-- Import Cart Data!-->
+        window.onload = function() {
+            fetch('http://localhost:3000/cart-data/')
+                .then(response => response.json())
+                .then(data => {
+                    const cartDisplay = document.getElementById('cartDisplay');
+                    const container = document.querySelector('.container');
+                    container.classList.add('show');
+                    if (data.cart.length === 0) {
+                        cartDisplay.innerHTML = "<p class='empty-cart'>El carrito está vacío.</p>";
+                    } else {
+                        data.cart.forEach(item => {
+                            const div = document.createElement('div');
+                            div.className = 'cart-item';
+                            const h2 = document.createElement('h2');
+                            h2.textContent = item;
+                            const trashcan = document.createElement('span');
+                            trashcan.className = 'trashcan';
+                            trashcan.textContent = '🗑️';
+                            trashcan.onclick = function(event) {
+                                // Stop the form submission
+                                event.preventDefault();
+
+                                // Send a DELETE request to the server with the item to delete
+                                fetch('http://localhost:3000/cart-data/' + encodeURIComponent(item), {
+                                    method: 'DELETE',
+                                })
+                                    .then(response => response.text())
+                                    .then(data => {
+                                        console.log(data);
+                                        // Remove the item element from the display
+                                        div.remove();
+                                        if (cartDisplay.children.length === 0) {
+                                            cartDisplay.innerHTML = "<p class='empty-cart'>El carrito está vacío.</p>";
+                                        }
+                                    })
+                                    .catch((error) => {
+                                        console.error('Error:', error);
+                                    });
+
+                                // Stop the event propagation
+                                event.stopPropagation();
+                                return false;
+                            };
+
+                            div.appendChild(trashcan);
+                            div.appendChild(h2);
+                            cartDisplay.appendChild(div);
+                            div.classList.add('show');
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+    <!-- Text And Buttons !-->
+</head>
+<body>
+<div class="navbar">
+    <a href="SpanishIndex.html" id="title">Xpos</a>
+</div>
+<div class="container">
+    <h1>Este es tu carrito</h1>
+    <div id="cartDisplay">
+        <!-- Cart items will be dynamically added here -->
+    </div>
+    <div>
+        <a href="SpanishPayMethod.html" class="option-link">Si</a>
+        <a href="SpanishTest1.2.html" class="option-link">No</a>
+    </div>
+</div>
+</body>
+</html>

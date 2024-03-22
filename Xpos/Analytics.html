@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+    <title>Menu</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f8f8;
+        }
+        .top-bar {
+            background-color: #fff;
+            color: #000;
+            padding: 20px;
+            text-align: left;
+            font-size: 24px;
+        }
+        .menu {
+            display: flex;
+            justify-content: space-around;
+            padding: 50px;
+        }
+        .menu-item {
+            text-align: center;
+        }
+        .menu-icon {
+            font-size: 50px;
+        }
+        .menu-text {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar"><a href="index.html" style="color: #000; text-decoration: none;">Xpos</a></div>
+</body>
+</html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+/* Reset styles */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Main styles */
+body {
+    background-color: #f8f8f8;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.chart-container {
+    margin-top: 20px;
+}
+
+.footer {
+    margin-top: 50px;
+    font-style: italic;
+    opacity: 0.6;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #fff;
+    padding: 15px;
+    text-align: left;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+    font-size: 24px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #555;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Analytics Dashboard</h1>
+        <div class="chart-container">
+            <canvas id="myChart" class="chart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Function to fetch cart data from the server
+        function fetchCartData() {
+            fetch('/cart-data')
+                .then(response => response.json())
+                .then(data => {
+                    const cartItems = data.cart;
+                    const itemCounts = {};
+
+                    // Count occurrences of each item
+                    cartItems.forEach(item => {
+                        if (itemCounts[item]) {
+                            itemCounts[item]++;
+                        } else {
+                            itemCounts[item] = 1;
+                        }
+                    });
+
+                    // Sort items by count in descending order
+                    const sortedItems = Object.keys(itemCounts).sort((a, b) => itemCounts[b] - itemCounts[a]);
+
+                    // Take top 5 selling items
+                    const topItems = sortedItems.slice(0, 5);
+
+                    // Display top selling items
+                    console.log("Top selling items:", topItems);
+
+                    // Draw chart using Chart.js
+                    drawChart(topItems, itemCounts);
+                })
+                .catch(error => console.error('Error fetching cart data:', error));
+        }
+
+        // Function to draw chart using Chart.js
+        function drawChart(labels, data) {
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Item Sales',
+                        data: labels.map(item => data[item]),
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+
+        // Call fetchCartData function when the page loads
+        window.onload = fetchCartData;
+    </script>
+</body>
+</html>

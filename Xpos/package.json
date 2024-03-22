@@ -1,0 +1,52 @@
+{
+  "name": "infpos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "App.js",
+  "scripts": {
+    "test": "Hi"
+  },
+  "author": "Xpos",
+  "license": "ISC",
+  "dependencies": {
+    "chart.js": "^4.4.2",
+    "crypto-js": "^4.2.0",
+    "express": "^4.18.3",
+    "google-translate-api": "^0.1.1",
+    "pkg": "^5.8.1"
+  },
+  "pkg": {
+    "assets": [
+      "404.css",
+      "404.html",
+      "App.js",
+      "buy.html",
+      "cart-data.json",
+      "English.png",
+      "error-data.json",
+      "favicon.ico",
+      "Files.txt",
+      "Index.html",
+      "Menu.html",
+      "node_modules/**/*",
+      "OIP (2).jpg",
+      "package-lock.json",
+      "package.json",
+      "PayMethod.html",
+      "Spanish.png",
+      "Spanishbuy.html",
+      "SpanishIndex.html",
+      "SpanishPayMethod.html",
+      "SpanishTest1.2.html",
+      "SpanishTest1.html",
+      "Test1.2.html",
+      "Test1.html",
+      "Tools/**/*",
+      "What404.html",
+      "Xpos.bat",
+      "Xpos.exe",
+      "xPos.ico",
+      "Xpos.pptx"
+    ]
+  }
+}
